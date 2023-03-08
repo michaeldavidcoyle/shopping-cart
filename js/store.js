@@ -10,7 +10,7 @@ export function setupStore() {
     document.addEventListener('click', event => {
         if (event.target.matches('[data-add-to-cart-btn]')) {
             const id = event.target.closest('[data-store-item]').dataset.itemId;
-            addToCart(id);
+            addToCart(+id);
         }
     });
 
