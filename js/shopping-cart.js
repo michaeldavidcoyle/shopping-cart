@@ -22,10 +22,15 @@ cartButton.addEventListener('click', () => {
 });
 
 export function addToCart(id) {
-    shoppingCart.push({
-        id: id,
-        quantity: 1
-    });
+    const itemInCart = shoppingCart.find(entry => entry.id === id);
+    if (itemInCart) {
+        itemInCart.quantity++;
+    } else {
+        shoppingCart.push({
+            id: id,
+            quantity: 1
+        });
+    }
 
     showItemsInCart();
 }
@@ -47,8 +52,10 @@ function showItemsInCart() {
         const image = cartItem.querySelector('[data-image]');
         image.src = `${IMAGE_URL}/${item.imageColor}/${item.imageColor}`;
 
-        const quantity = cartItem.querySelector('[data-quantity]');
-        quantity.innerHTML = `&times;${entry.quantity}`;
+        if (entry.quantity > 1) {
+            const quantity = cartItem.querySelector('[data-quantity]');
+            quantity.innerHTML = `&times;${entry.quantity}`;
+        }
 
         const price = cartItem.querySelector('[data-price]');
         price.innerText = formatCurrency(item.priceCents * entry.quantity / 100);
