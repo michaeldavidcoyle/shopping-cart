@@ -9,6 +9,7 @@ const shoppingCart = [];
 const IMAGE_URL = 'https://dummyimage.com/210x130';
 const cartItemTemplate = document.querySelector('#cart-item-template');
 const cartItemsContainer = document.querySelector('[data-cart-items]');
+const cartQuantity = document.querySelector('[data-cart-quantity]');
 
     export function setupShoppingCart() {}
 
@@ -37,6 +38,7 @@ export function addToCart(id) {
 
 function showItemsInCart() {
     cartItemsContainer.innerHTML = '';
+    cartQuantity.innerText = shoppingCart.length;
 
     shoppingCart.forEach(entry => {
         console.log(entry, items);
