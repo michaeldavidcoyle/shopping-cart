@@ -11,12 +11,13 @@ const cartItemTemplate = document.querySelector('#cart-item-template');
 const cartItemsContainer = document.querySelector('[data-cart-items]');
 const cartQuantity = document.querySelector('[data-cart-quantity]');
 const cartTotal = document.querySelector('[data-cart-total]');
+const cart = document.querySelector('[data-cart]');
 
-    export function setupShoppingCart() {}
+export function setupShoppingCart() {
+    renderCart();
+}
 
 // Remove items from cart
-// Show/hide cart button when it has no items or on
-//     when it goes from 0 to 1 item
 // Persist across multiple pages
 
 cartButton.addEventListener('click', () => {
@@ -35,6 +36,25 @@ export function addToCart(id) {
     }
 
     showItemsInCart();
+    renderCart();
+}
+
+function renderCart() {
+    if (shoppingCart.length) {
+        showCart();
+        showItemsInCart();
+    } else {
+        hideCart();
+    }
+}
+
+function showCart() {
+    cart.classList.remove('invisible');
+}
+
+function hideCart() {
+    cart.classList.add('invisible');
+    cartContainer.classList.add('invisible');
 }
 
 function showItemsInCart() {
