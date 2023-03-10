@@ -7,6 +7,8 @@ const storeItemContainer = document.querySelector('[data-store-container]');
 const IMAGE_URL = 'https://dummyimage.com/420x260';
 
 export function setupStore() {
+    if (storeItemContainer == null) return;
+
     document.addEventListener('click', event => {
         if (event.target.matches('[data-add-to-cart-btn]')) {
             const id = event.target.closest('[data-store-item]').dataset.itemId;
