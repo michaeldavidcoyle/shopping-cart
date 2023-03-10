@@ -4,7 +4,7 @@ import items from '../items.json';
 const cartButton = document.querySelector('[data-cart-button]');
 const cartContainer = document.querySelector('[data-cart-container]');
 
-const shoppingCart = [];
+let shoppingCart = [];
 
 const IMAGE_URL = 'https://dummyimage.com/210x130';
 const cartItemTemplate = document.querySelector('#cart-item-template');
@@ -14,6 +14,13 @@ const cartTotal = document.querySelector('[data-cart-total]');
 const cart = document.querySelector('[data-cart]');
 
 export function setupShoppingCart() {
+    document.addEventListener('click', event => {
+        if (event.target.matches('[data-remove-from-cart-button]')) {
+            const id = event.target.closest('[data-item]').dataset.itemId;
+            removeFromCart(+id);
+        }
+    });
+
     renderCart();
 }
 
@@ -35,7 +42,14 @@ export function addToCart(id) {
         });
     }
 
-    showItemsInCart();
+    renderCart();
+}
+
+function removeFromCart(id) {
+    const itemInCart = shoppingCart.find(entry => entry.id === id);
+    if (itemInCart == null) return;
+    shoppingCart = shoppingCart.filter(entry => entry.id !== id);
+
     renderCart();
 }
 
