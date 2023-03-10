@@ -12,6 +12,7 @@ const cartItemsContainer = document.querySelector('[data-cart-items]');
 const cartQuantity = document.querySelector('[data-cart-quantity]');
 const cartTotal = document.querySelector('[data-cart-total]');
 const cart = document.querySelector('[data-cart]');
+const SESSION_STORAGE_KEY = 'SHOPPING_CART-cart';
 
 export function setupShoppingCart() {
     document.addEventListener('click', event => {
@@ -24,8 +25,9 @@ export function setupShoppingCart() {
     renderCart();
 }
 
-// Remove items from cart
-// Persist across multiple pages
+function saveCart() {
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(shoppingCart));
+}
 
 cartButton.addEventListener('click', () => {
     cartContainer.classList.toggle('invisible');
@@ -43,6 +45,7 @@ export function addToCart(id) {
     }
 
     renderCart();
+    saveCart();
 }
 
 function removeFromCart(id) {
@@ -51,6 +54,7 @@ function removeFromCart(id) {
     shoppingCart = shoppingCart.filter(entry => entry.id !== id);
 
     renderCart();
+    saveCart();
 }
 
 function renderCart() {
