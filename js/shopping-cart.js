@@ -22,11 +22,17 @@ export function setupShoppingCart() {
         }
     });
 
+    shoppingCart = loadCart();
     renderCart();
 }
 
 function saveCart() {
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(shoppingCart));
+}
+
+function loadCart() {
+    const cart = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    return JSON.parse(cart) || [];
 }
 
 cartButton.addEventListener('click', () => {
@@ -86,7 +92,6 @@ function showItemsInCart() {
     cartTotal.innerText = formatCurrency(totalCents / 100);
 
     shoppingCart.forEach(entry => {
-        console.log(entry, items);
         const item = items.find(i => entry.id === i.id);
         const cartItem = cartItemTemplate.content.cloneNode(true);
 
